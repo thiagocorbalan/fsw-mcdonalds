@@ -1,0 +1,21 @@
+version: '3.7'
+
+services:
+    fsw-db:
+      build:
+        context: prisma/.
+      image: fsw/db
+      container_name: fsw_db
+      volumes:
+      - fsw_volume_data:/var/lib/postgresql/data
+      ports:
+      - "5432:5432"
+
+networks:
+  default:
+    external:
+      name: fsw
+
+volumes:
+  fsw_volume_data:
+    external: true
