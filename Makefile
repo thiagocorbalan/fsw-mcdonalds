@@ -10,5 +10,14 @@ build:
 	@docker-compose build
 
 start: setup build
+	@echo "Iniciando..."
 	@docker-compose up -d
-	@npm run dev
+
+restart: stop start
+
+logs:
+	@docker-compose logs -f
+
+stop:
+	@echo "Parando..."
+	@docker-compose down
