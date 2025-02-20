@@ -31,7 +31,7 @@ model MenuCategory {
   id            String     @id @default(uuid())
   name          String
   restaurant_id String
-  restaurant    Restaurant @relation(fields: [restaurant_id], references: [id])
+  restaurant    Restaurant @relation(fields: [restaurant_id], references: [id], onDelete: Cascade)
   created_at    DateTime   @default(now())
   updated_at    DateTime   @updatedAt
   products      Product[]
@@ -44,9 +44,9 @@ model Product {
   price            Float
   image_url        String
   ingredients      String[]
-  restaurant       Restaurant     @relation(fields: [restaurant_id], references: [id])
+  restaurant       Restaurant     @relation(fields: [restaurant_id], references: [id], onDelete: Cascade)
   restaurant_id    String
-  menuCategory     MenuCategory   @relation(fields: [menu_category_id], references: [id])
+  menuCategory     MenuCategory   @relation(fields: [menu_category_id], references: [id], onDelete: Cascade)
   menu_category_id String
   order_products   OrderProduct[]
   created_at       DateTime       @default(now())
@@ -57,7 +57,7 @@ model Order {
   id                 Int               @id @default(autoincrement())
   total              Float
   status             OrderStatus
-  restaurant         Restaurant        @relation(fields: [restaurants_id], references: [id])
+  restaurant         Restaurant        @relation(fields: [restaurants_id], references: [id], onDelete: Cascade)
   restaurants_id     String
   consumption_method ConsumptionMethod
   order_products     OrderProduct[]
@@ -67,9 +67,9 @@ model Order {
 
 model OrderProduct {
   id         String   @id @default(uuid())
-  product    Product  @relation(fields: [product_id], references: [id])
+  product    Product  @relation(fields: [product_id], references: [id], onDelete: Cascade)
   product_id String
-  order      Order    @relation(fields: [order_id], references: [id])
+  order      Order    @relation(fields: [order_id], references: [id], onDelete: Cascade)
   order_id   Int
   quantity   Int
   price      Float
