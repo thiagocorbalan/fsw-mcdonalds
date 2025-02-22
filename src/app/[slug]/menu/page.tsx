@@ -1,7 +1,8 @@
 import { notFound } from "next/navigation";
 
-import { getRestaurantBySlug } from "@/data/data-restaurant-by-slug";
+import { getRestaurantWithCategories } from "@/data/data-restaurant-by-slug";
 
+import RestaurantCategories from "../components/categories";
 import RestaurantHeader from "./components/header";
 
 interface RestaurantsMenuPageProps {
@@ -19,12 +20,13 @@ const RestaurantsMenuPage = async ({ params, searchParams }: RestaurantsMenuPage
 
     if (!isConsumptionMethodValid(consumptionMethod)) return notFound();
 
-    const restaurant = await getRestaurantBySlug(slug);
+    const restaurant = await getRestaurantWithCategories(slug);
     if (!restaurant) return notFound();
 
 
     return <div>
         <RestaurantHeader restaurant={restaurant} />
+        <RestaurantCategories restaurant={restaurant} />
     </div>
 }
 
